@@ -5,6 +5,10 @@ export default class SearchSubCategory extends Component {
         let {categoryItem,query} = this.props;
 
         //console.log(categoryItem.subcategory)
+
+        let styles = {
+            color: 'orange',
+          };
         
         let searchSubCatItem;
     
@@ -16,7 +20,7 @@ export default class SearchSubCategory extends Component {
 
                 if(check !== -1){
                     return (
-                        <li key={index}>{subcatItem.Name}</li>
+                        <li key={index} style={styles}>{subcatItem.Name}</li>
                     )
                 }
                 
@@ -26,7 +30,7 @@ export default class SearchSubCategory extends Component {
         
         return (
             <>
-                <li>{categoryItem.Name}</li>
+                <li style={styles}>{categoryItem.Name}</li>
                 <ul>
                     {
                         searchSubCatItem &&

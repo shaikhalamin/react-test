@@ -7,6 +7,10 @@ export default class SearchListItem extends Component {
         let {Name,category} = item;
         //console.log(category.length,category);
         let searchCatItem;
+
+        let styles = {
+            color: 'orange',
+          };
         
         if(Object.keys(category).length > 0){
             searchCatItem = category.map((categoryItem,index)=>{
@@ -19,7 +23,7 @@ export default class SearchListItem extends Component {
 
         return (
             <div>
-                <li>{Name}</li>
+                <li style={styles}>{Name}</li>
                     <ul>
                         {searchCatItem &&
                             searchCatItem
