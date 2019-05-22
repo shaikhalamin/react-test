@@ -7,7 +7,8 @@ export default class App extends Component {
 state = {
   dataList:[],
   loading:true,
-  searchres:[]
+  searchres:[],
+  query:''
 }
 
 async componentDidMount(){
@@ -15,7 +16,8 @@ async componentDidMount(){
   this.setState({
     dataList: productsdata,
     loading:false,
-    searchres:[]
+    searchres:[],
+    query:''
   })
 }
 
@@ -25,12 +27,10 @@ prepareData = (products)=>{
     let categoryMain = products.filter(pitem => pitem.ParentCategoryId === item.Id);
     let category = categoryMain.map((ssitem,index)=>{
       let subcategory = products.filter(spitem => spitem.ParentCategoryId === ssitem.Id);
-      subcategory.index=null;
-      subcategory.highlight=null;
-      let newSub = {...ssitem,index:null,highlight:null,notifyp:false,subcategory}
+      let newSub = {...ssitem,subcategory}
      return newSub
     })
-    let finalData = {...item,index:null,highlight:null,category}
+    let finalData = {...item,category}
     return finalData;
   })
   return wrapData;
@@ -69,8 +69,6 @@ handaleChange = (e)=>{
             
             if(catres !== -1){
               
-              catitem.index = catres;
-              catitem.highlight = q.length;
               //console.log(catitem);
               category.push(catitem);
               return catitem;
@@ -85,12 +83,9 @@ handaleChange = (e)=>{
               let subCatRes = subcat.Name.toLowerCase().indexOf(q.toLowerCase());
               if(subCatRes !== -1){
                 category = [...category,cateItem]
-             // console.log(subcat.Name,subCatRes);
+             //console.log(subcat.Name,subCatRes);
                subcat.index = subCatRes;
                subcat.highlight = q.length;
-               //catitem.notifyp = true;
-               //console.log(cateItem,subcat)
-              //return {cateItem:subcat}
               }
             
               //return subcat;
@@ -98,33 +93,28 @@ handaleChange = (e)=>{
 
           })
 
-
-          //category = Object.assign({}, categoryNew, { subCategory })
-
-          //console.log(category);
-
         }
         //category = Object.assign(categoryNew, subCategory);
         //console.log(categoryNew,subCategory);
-        console.log({...item,category});
+        //console.log({...item,category});
 
-        //return {...item,category}
+        return {...item,category}
 
     })
 
     this.setState({
-      //dataList: this.state.dataList,
-      //loading:false,
-      //searchres:[]
+      dataList: this.state.dataList,
+      loading:false,
+      searchres:searchRes,
+      query:q
     })
-
-    
     //console.log(searchRes);
   }else{
     this.setState({
-      //dataList: this.state.dataList,
-      //loading:false,
-      //searchres:[]
+      dataList: this.state.dataList,
+      loading:false,
+      searchres:[],
+      query:''
     })
   }
   
@@ -148,7 +138,7 @@ handaleChange = (e)=>{
           <ul>
             {
               searchres.map((sritem,i)=>{
-                return <SearchListItem key={i} item={sritem}/>
+                return <SearchListItem key={i} item={sritem} query={this.state.query}/>
               })
             }
           </ul>

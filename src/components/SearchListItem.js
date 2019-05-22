@@ -3,20 +3,19 @@ import SearchSubCategory from './SearchSubCategory';
 
 export default class SearchListItem extends Component {
     render() {
-        let {Name,category} = this.props.item;
-       // console.log(category);
+        let {item,query} = this.props;
+        let {Name,category} = item;
+        //console.log(category.length,category);
         let searchCatItem;
+        
         if(Object.keys(category).length > 0){
             searchCatItem = category.map((categoryItem,index)=>{
-                if(categoryItem.index !== null || categoryItem.notifyp !== false){
-                    return (
-                    <SearchSubCategory key={index} categoryItem={categoryItem} />
-                    )
-                }
-              
+                return (
+                <SearchSubCategory key={index} categoryItem={categoryItem} query={query}/>
+                )
             })
           }
-
+        
 
         return (
             <div>
