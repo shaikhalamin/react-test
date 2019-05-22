@@ -11,13 +11,23 @@ export default class SearchListItem extends Component {
         let styles = {
             color: 'orange',
           };
+
+          let modifiedCategory = {}
+          let filtered ;
+
+
+
         
         if(Object.keys(category).length > 0){
-            searchCatItem = category.map((categoryItem,index)=>{
+            filtered = category.filter(obj => !modifiedCategory[obj.Id] && (modifiedCategory[obj.Id] = true));
+            console.log(filtered);
+            
+            searchCatItem = filtered.map((categoryItem,index)=>{
                 return (
                 <SearchSubCategory key={index} categoryItem={categoryItem} query={query}/>
                 )
             })
+            
           }
         
 
