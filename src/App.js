@@ -71,7 +71,8 @@ handaleChange = (e)=>{
               
               catitem.index = catres;
               catitem.highlight = q.length;
-              console.log(catitem);
+              //console.log(catitem);
+              category.push(catitem);
               return catitem;
             }
 
@@ -83,6 +84,7 @@ handaleChange = (e)=>{
              subCategory = cateItem.subcategory.map((subcat,i)=>{
               let subCatRes = subcat.Name.toLowerCase().indexOf(q.toLowerCase());
               if(subCatRes !== -1){
+                category = [...category,cateItem]
              // console.log(subcat.Name,subCatRes);
                subcat.index = subCatRes;
                subcat.highlight = q.length;
@@ -104,25 +106,25 @@ handaleChange = (e)=>{
         }
         //category = Object.assign(categoryNew, subCategory);
         //console.log(categoryNew,subCategory);
-
+        console.log({...item,category});
 
         //return {...item,category}
 
     })
 
     this.setState({
-      dataList: this.state.dataList,
-      loading:false,
-      searchres:[]
+      //dataList: this.state.dataList,
+      //loading:false,
+      //searchres:[]
     })
 
     
     //console.log(searchRes);
   }else{
     this.setState({
-      dataList: this.state.dataList,
-      loading:false,
-      searchres:[]
+      //dataList: this.state.dataList,
+      //loading:false,
+      //searchres:[]
     })
   }
   
